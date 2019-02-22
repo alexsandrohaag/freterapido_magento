@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  magento:
+    build: .
+    ports:
+      - "7070:80"
+    links:
+      - database
+    env_file:
+      - docker-compose.env
+    extra_hosts:
+      - magento.local:172.17.0.1
+      - freterapido.local:172.17.0.1
+    volumes:
+      # code
+      - ./app/code/community/Freterapido:/var/www/html/app/code/community/Freterapido
+      # design
+      - ./app/design/frontend/base/default/template/freterapido:/var/www/html/app/design/frontend/base/default/template/freterapido
+      - ./app/design/frontend/base/default/layout/freterapido:/var/www/html/app/design/frontend/base/default/layout/freterapido
+      # etc
+      - ./app/etc/modules/Freterapido_Freterapido.xml:/var/www/html/app/etc/modules/Freterapido_Freterapido.xml
+      - ./app/etc/modules/Freterapido_ProductPageShipping.xml:/var/www/html/app/etc/modules/Freterapido_ProductPageShipping.xml
+      # skin
+      - ./skin/frontend/base/default/css/freterapido:/var/www/html/skin/frontend/base/default/css/freterapido
+
+  database:
+    image: mysql:5.6.23
+    volumes:
+      - magento-data:/var/lib/mysql/data
+    env_file:
+      - docker-compose.env
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - "5051:80"
+    links:
+      - database
+
+volumes:
+  magento-data:
