@@ -4,7 +4,7 @@
 
 ### **Módulo para plataforma Magento**
 
-Versão do módulo: 1.2.0
+Versão do módulo: 1.3.0
 
 Compatibilidade com Magento: **1.9.x**
 
@@ -157,5 +157,5 @@ Encontrou algum bug ou tem sugestões de melhorias no código? Sensacional! Não
 [5]: https://github.com/freterapido/freterapido_magento/blob/master/LICENSE
 [6]: https://github.com/freterapido/freterapido_magento/blob/master/README.md
 [7]: https://github.com/freterapido/freterapido_magento/blob/master/README_EN.md
-[8]: http://devdocs.magento.com/
-[9]: https://www.freterapido.com/dev/
+[8]: http://devdocs.magento.com
+[9]: https://dev.freterapido.com

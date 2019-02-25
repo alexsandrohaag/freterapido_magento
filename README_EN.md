@@ -6,7 +6,7 @@
 
 ### **Magento Platform Module**
 
-Version: **1.2.0**
+Version: **1.3.0**
 
 Magento compatibility: **1.9.x**
 
@@ -159,4 +159,4 @@ Did you find any bug? Do you have any improvements suggestions? Great! Don't be 
 [6]: https://github.com/freterapido/freterapido_magento/blob/master/README.md
 [7]: https://github.com/freterapido/freterapido_magento/blob/master/README_EN.md
 [8]: http://devdocs.magento.com/
-[9]: https://freterapido.com/dev/
+[9]: https://dev.freterapido.com
