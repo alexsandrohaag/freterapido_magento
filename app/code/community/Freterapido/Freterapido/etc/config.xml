@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Freterapido_Freterapido>
-            <version>1.3.0</version>
+            <version>1.3.1</version>
             <depends>
                 <Mage_shipping />
             </depends>
@@ -90,10 +90,6 @@
                 <apierror>Não foi possível se comunicar com o serviço do Frete Rápido</apierror>
                 <msgprazo>%s - Entrega em até %d %s</msgprazo>
                 <!-- VOLUME -->
-                <default_type>999</default_type>
-                <default_height>50</default_height>
-                <default_width>50</default_width>
-                <default_length>50</default_length>
                 <limit>5</limit>
 
                 <!-- CONFIGURATION -->

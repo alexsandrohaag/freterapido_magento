@@ -6,7 +6,7 @@
 
 ### **Magento Platform Module**
 
-Version: **1.3.0**
+Version: **1.3.1**
 
 Magento compatibility: **1.9.x**
 
@@ -43,7 +43,7 @@ The Frete Rápido is not responsible for eventualities arising from this module.
 - Verify if the path **local.xml** is enabled in "app/etc" directory of your Magento store. Case this path is not enabled, you can rename the **local.xml.sample** file to **local.xml**.
 - After all, you need to clear the cache of your Magento store by administrative area: System > Cache Management.
 
-![Caution image](https://freterapido.com/dev/imgs/magento_doc_english/attention_installation.PNG)
+![Caution image](https://dev.freterapido.com/imgs/magento_doc_english/attention_installation.PNG)
 
 ----------
 
@@ -75,14 +75,14 @@ Is needed setting up somethings on this module to get all usability with API of 
 
 - Information about the sender is very important to know the origin of your freight. You need to put the origin information in: System > Settings > Shipping Settings > Origin.
 
-![Origin information](https://freterapido.com/dev/imgs/magento_doc_english/origin_settings.PNG "Origin information")
+![Origin information](https://dev.freterapido.com/imgs/magento_doc_english/origin_settings.PNG "Origin information")
 
 > **Note:** It's very important complete all fields correctly.
 
 #### 3. Measures and Fabrication time:
 - To calculate the freight correctly we need to know the measurements (cm) of each product. You need to put the measurements in: Catalog > Manage Products > [Select a product] > Frete Rápido menu.
 
-![Setting up the measurements of a product](https://freterapido.com/dev/imgs/magento_doc_english/fr_products.PNG "Setting up the measurements of a product")
+![Setting up the measurements of a product](https://dev.freterapido.com/imgs/magento_doc_english/fr_products.PNG "Setting up the measurements of a product")
 
 > **Attention:** You need to consider the measurements and weight of product with the package ready to shipment.
 > 
@@ -91,7 +91,7 @@ Is needed setting up somethings on this module to get all usability with API of 
 #### 4. Categories
 - It's important to relate each category from your store with the categories of the Frete Rápido in: Catalog> Manage Categories> Frete Rápido Categories.
 
-![Setting up categories](https://freterapido.com/dev/imgs/magento_doc_english/fr_categories.PNG)
+![Setting up categories](https://dev.freterapido.com/imgs/magento_doc_english/fr_categories.PNG)
 
 > **Note:** Not all categories in your store may match with the Frete Rápido categories, but you can relate them broadly.
 >
@@ -107,16 +107,16 @@ Is needed setting up somethings on this module to get all usability with API of 
 It's possible to contract the freight directly in the administrative area of the store, in the detailing of the customer's orders.
 
 * Open the order (Sales > Orders) and click on the **"Ship"** button.
-![Contracting freights](https://freterapido.com/dev/imgs/magento_doc_english/order.png "Detailing of order")
+![Contracting freights](https://dev.freterapido.com/imgs/magento_doc_english/order.png "Detailing of order")
 
 * You will be redirected to the shipping confirmation screen. After you checking the information, click on the button **"Submit Shipment"**
-![Freight confirmation](https://freterapido.com/dev/imgs/magento_doc_english/confirm_order.PNG "Freight confirmation")
+![Freight confirmation](https://dev.freterapido.com/imgs/magento_doc_english/confirm_order.PNG "Freight confirmation")
 * At this moment, the Frete Rápido will request the collect of your items at the transportation carrier chosen.
 
 --------
 
 ### Freight quotation at product page
-![Setting-up freight quotation at product page](https://freterapido.com/dev/imgs/magento_doc_english/fr_product_page.PNG "Setting-up freight quotation at product page")
+![Setting-up freight quotation at product page](https://dev.freterapido.com/imgs/magento_doc_english/fr_product_page.PNG "Setting-up freight quotation at product page")
 
 - **Enable:** You can enable ou disable the freight quotation at the product page.
 - **Display position:** It allows you choose position of the quotation bloque on the product page layout (this option will depends of the store layout). The options are:
@@ -152,7 +152,7 @@ Did you find any bug? Do you have any improvements suggestions? Great! Don't be 
 
 
 [1]: https://marketplace.magento.com/freterapido-frete-rapido.html "Magento Connect"
-[2]: https://freterapido.com/painel/?origin=github_magento "Painel do Frete Rápido"
+[2]: https://painel.freterapido.com "Painel do Frete Rápido"
 [3]: mailto:support@freterapido.com ":)"
 [4]: https://github.com/freterapido/freterapido_magento/archive/master.zip
 [5]: https://github.com/freterapido/freterapido_magento/blob/master/LICENSE

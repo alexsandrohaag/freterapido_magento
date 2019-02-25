@@ -361,26 +361,25 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
 
             // Recupera os ids das categorias relacionadas ao produto
             $categories_ids = $product->getCategoryIds();
-            $categories = array();
+            $categories = [];
 
             foreach ($categories_ids as $id) {
                 $_category = Mage::getModel('catalog/category')->load($id);
-                $_level = $_category->getData('level');
-
                 $_category_fr = $_category->getData('fr_category');
 
                 // Verifica se o Model de categoria não está vazio e se a categoria do FR foi definida para o produto
                 if (!empty($_category) && !empty($_category_fr)) {
+                    $_level = $_category->getData('level');
                     $categories[$_level] = $_category->getData('fr_category');
                 }
             }
 
             // Ordena para que a categoria com nível maior (mais específica) fique na primeira posição
             krsort($categories);
+            $categories = array_values($categories);
 
             // Verifica se a categoria foi encontrada e inserida no array, remove as chaves e extrai o primeiro item do array
-            $type = is_array($categories) && !empty(array_values($categories)[0]) ?
-                array_values($categories)[0] : $this->getConfigData('default_type');
+            $type = is_array($categories) && !empty($categories[0]) ? $categories[0] : 999;
 
             if ($item->getParentItemId() && $item->getParentItem()->getProductType() == 'bundle') {
                 $qtde_bundle = $item->getParentItem()->getQty();
@@ -427,53 +426,42 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
     }
 
     /**
+     * Tenta obter as medidas do produto, se for 0 ou vazio tenta obter as medidas genéricas preenchidas na configuração
+     * caso também não esteja preenchido ou seja = 0, retorna valor informado como $def
+     */
+    protected function _getDimensions($product, $fr_volume, $generic = null, $def = null) {
+        $product_value = $product->getData("fr_volume_{$fr_volume}");
+        if (!empty($product_value)) {
+            return $product_value;
+        }
+
+        if (!is_null($generic)) {
+            $generic_value = $this->getConfigData("generic_{$generic}");
+            if (!empty($generic_value)) {
+                return $generic_value;
+            }
+        }
+
+
+        return $def;
+    }
+
+    /**
      * Recupera os campos personalizados do Frete Rápido
      *
      * @param $item
      */
     protected function _getFrFields($item, $sku)
     {
-        $product_child = $item->getProduct();
+        $product = $item->getProduct();
 
-        // Tenta obter as medidas do produto, se for 0 ou vazio tenta obter as medidas genéricas preenchidas na configuração
-        // caso também não esteja preenchido ou seja = 0, seta a a medida padrão (50cm)
-        $_fr_volume_altura = $product_child->getData('fr_volume_altura');
-        $_generic_height = $this->getConfigData('generic_height');
+        $height = $this->_getDimensions($product, 'altura', 'height', 0);
+        $width  = $this->_getDimensions($product, 'largura', 'width', 0);
+        $length = $this->_getDimensions($product, 'comprimento', 'length', 0);
+        $prazo_fabricacao = $this->_getDimensions($product, 'prazo_fabricacao');
 
-        if (!empty($_fr_volume_altura)) {
-            $height = $_fr_volume_altura;
-        } elseif (!empty($_generic_height)) {
-            $height = $_generic_height;
-        } else {
-            $height = $this->getConfigData('default_height');
-        }
-
-        $fr_volume_largura = $product_child->getData('fr_volume_largura');
-        $_generic_width = $this->getConfigData('generic_width');
-
-        if (!empty($fr_volume_largura)) {
-            $width = $fr_volume_largura;
-        } elseif (!empty($_generic_width)) {
-            $width = $_generic_width;
-        } else {
-            $width = $this->getConfigData('default_width');
-        }
-
-        $_fr_volume_comprimento = $product_child->getData('fr_volume_comprimento');
-        $_generic_length = $this->getConfigData('generic_length');
-
-        if (!empty($_fr_volume_comprimento)) {
-            $length = $_fr_volume_comprimento;
-        } elseif (!empty($_generic_length)) {
-            $length = $_generic_length;
-        } else {
-            $length = $this->getConfigData('default_length');
-        }
-
-        $_fr_volume_prazo_fabricacao = $product_child->getData('fr_volume_prazo_fabricacao');
-
-        if (!empty($_fr_volume_prazo_fabricacao) && $_fr_volume_prazo_fabricacao > $this->_manufacturing_time) {
-            $this->_manufacturing_time = $product_child->getData('fr_volume_prazo_fabricacao');
+        if (!empty($prazo_fabricacao) && $prazo_fabricacao > $this->_manufacturing_time) {
+            $this->_manufacturing_time = $prazo_fabricacao;
         }
 
         $this->_volumes[$sku]['sku'] = $sku;
