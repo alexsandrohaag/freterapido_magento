@@ -30,12 +30,29 @@ services:
     env_file:
       - docker-compose.env
 
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   ports:
+  #     - "5051:80"
+  #   env_file:
+  #     - docker-compose.env
+  #   links:
+  #     - database
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
+    labels:
+    - com.freterapido.project=database
+    - com.freterapido.type=dev
     ports:
-      - "5051:80"
-    links:
-      - database
+    - 5051:80
+    volumes:
+    - ./database/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+    environment:
+    - PMA_ARBITRARY=1
+    - PMA_PORT=3306
+    - PMA_HOST=database
+    - PMA_USER=magento
+    - PMA_PASSWORD=magento
 
 volumes:
   magento-data:
