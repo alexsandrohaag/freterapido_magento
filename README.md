@@ -97,7 +97,7 @@ Após a instalação é necessário realizar algumas configurações iniciais pa
 
 - Caso as dimensões não forem informadas, serão utilizadas as medidas padrões informadas na [Configuração do módulo](#_1-configuracao-do-modulo). Contudo, recomendamos que cada produto tenha suas próprias configurações de **dimensões** e **peso** separadamente, para cálculo de frete mais preciso.
 
-#### 4. Categorias
+### 4. Categorias
 
 - Caso tenha interesse em aplicar campanhas de regra de frete por categoria de produtos, será importante relacionar as categorias da sua loja com as categorias da Frete Rápido. Para isso, basta relacioná-las em:
 	- [EN] **Catalog** > **Manage Categories** > [**Select a category**] >  **Categoria no Frete Rápido**.
