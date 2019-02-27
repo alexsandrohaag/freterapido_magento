@@ -15,10 +15,6 @@ Links úteis:
 - [suporte@freterapido.com][3]
 
 
-Idioma: 
-
-[<img src="https://lipis.github.io/flag-icon-css/flags/4x3/br.svg" alt="PT-BR" height="30px" title="Portuguese-BR"/>][6] [<img src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg" alt="ENG" height="30px" title="English"/>][7]
-
 -------------
 
 ### IMPORTANTE
@@ -48,89 +44,124 @@ A Frete Rápido não se responsabiliza por eventualidades advindas deste módulo
 
 ----------
 
-### Configurações
+## Configurações iniciais
 
-É necessário realizar algumas configurações na sua loja para obter total usabilidade do módulo **Frete Rápido**.
+Após a instalação é necessário realizar algumas configurações iniciais para obter total usabilidade desse módulo.
 
-#### 1. Configurações do módulo:
+### 1. Configuração do módulo:
 
-- Agora, configure a nova forma de entrega: System > Settings > Shipping Methods > Frete Rápido (conforme imagem abaixo).
+- Configure a nova forma de entrega em:
+	-  [EN] **System** > **Settings** > **Shipping Methods** > **Frete Rápido** (conforme imagem abaixo).
+	-  [PT] **Sistema** > **Configurações** > **Métodos de envio** > **Frete Rápido** (conforme imagem abaixo).
 
-![Configurando o módulo do Frete Rápido](app/code/community/Freterapido/Freterapido/docs/img/extension_settings.PNG "Configurações do módulo")
+<img src="https://freterapido.com/wiki/magento_1.9/images/extension_settings.PNG" alt="cotações de frete Magento, logística para magento, gateway de frete" title="Configurando o módulo do Frete Rápido" style="display: block; margin-left: auto; margin-right: auto;">
 
-- **Habilitar:** Habilita ou desabilita o módulo conforme sua necessidade.
-- **Título:** Permite definir um título para a seção de resultados.
-- **CNPJ:** CNPJ da sua empresa conforme registrado no Frete Rápido (apenas números, sem pontos e traço).
-- **Formato do Peso:** Formato do valor do peso registrado para cada produto (Quilos ou Gramas).
-- **Altura padrão (cm):** Define a altura padrão dos produtos que não tiverem altura informada.
-- **Largura padrão (cm):** Define a largura padrão dos produtos que não tiverem altura informada.
-- **Comprimento padrão (cm):** Define a comprimento padrão dos produtos que não tiverem altura informada.
-- **Frete Grátis:**  Habilita o frete mais barato retornado pelo Frete Rápido como **frete grátis**.
-- **Valor Mínimo Frete Grátis:**  Define o valor mínimo para ativar a regra de **Frete grátis**. Para valor **indefinido**, informe **0**.
-- **Resultados:** Define como deseja receber as cotações.
-- **Limite:** Permitir limitar, até 20, a quantidade de cotações que deseja apresentar ao visitante.
-- **Token:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
+- **Habilitar:** Habilita ou desabilita o módulo em sua loja.
+- **Título:** Define um título para a seção de resultados.
+- **CNPJ:** CNPJ da sua empresa, o mesmo registrado na Frete Rápido (**somente números, sem pontos**).
+- **Formato do Peso:** Formato do peso utilizado em sua loja (Quilos ou Gramas).
+- **Altura padrão (cm):** Define Altura padrão para os produtos que não tiverem sido informados.
+- **Largura padrão (cm):** Define Largura padrão para os produtos que não tiverem sido informados.
+- **Comprimento padrão (cm):** Define Comprimento padrão para os produtos que não tiverem sido informados.
+- **Frete Grátis:**  Habilita o frete mais barato como **frete grátis**.
+- **Valor Mínimo Frete Grátis:**  Define o valor mínimo para aplicar a regra de **Frete grátis**.
+- **Resultados:** Define quais resultados apresentar.
+- **Limite:** Limitar a quantidade de cotações que deseja apresentar ao visitante.
+- **Token:** Token de integração da sua empresa disponível no [Painel administrativo do Frete Rápido][2] > Configurações.
 
-#### 2. Remetente
 
-- As informações sobre o remetente das mercadorias são muito importantes para sabermos qual a origem dos seus fretes. Acesse a área administrativa da sua loja e informe os dados de origem em: System > Settings > Shipping Settings > Origin.
+### 2. Origem remetente
 
-![Sessão de dados da origem](app/code/community/Freterapido/Freterapido/docs/img/origin_settings.PNG "Dados de origem")
+- As informações de Origem das mercadorias são **importantes** para definirmos a origem dos seus fretes. 
+- Acesse a área administrativa da sua loja e informe os dados de origem em:
+	- [EN] **System** > **Settings** > **Shipping Settings** > **Origin**.
+	- [PT] **Sistema** > **Configurações** > **Configurações de envio** > **Origem**.
+
+<img style="display: block; margin-left: auto; margin-right: auto;" src="https://freterapido.com/wiki/magento_1.9/images/origin_settings.PNG" alt="dashboard logístico, transportadora para ecommerce magento" title="Dados de origem">
 
 > **Obs:** É importante informar todos os campos corretamente.
 
-#### 3. Medidas e Prazo de fabricação:
-- Para calcular o frete precisamos saber as medidas das embalagens de cada produto. Você precisa informá-las em: Catalog > Manage Products > [Selecionar produto] > menu Frete Rápido.
+### 3. Medidas e Prazo de envio:
+- Para cálculo de frete com precisão é necessário ter as medidas de envio dos produtos informadas. Basta informá-las em: 
+	- [EN] **Catalog** > **Manage Products** > **[select product]** > menu **General**.
+	- [PT] **Catálogo** > **Produtos** > **[Selecionar produto]** > menu **Geral**.
 
-![Configurando as medidas das embalagens dos produtos](app/code/community/Freterapido/Freterapido/docs/img/iten_setting.PNG "Configuração de medidas dos produtos")
+<img style="display: block; margin-left: auto; margin-right: auto;" src="https://freterapido.com/wiki/magento_1.9/images/iten_setting.png" alt="integrações de frete magento, frete magento" title="Configuração de medidas dos produtos">
 
-> **Atenção:** Considerar as dimensões e peso do produto com a embalagem pronta para envio/postagem.
-> É obrigatório ter o peso configurado em cada produto para que seja possível cotar o frete de forma eficiente. As dimensões podem ficar em branco e neste caso, serão utilizadas as medidas padrões informadas na configuração do plugin, mas é recomendado que cada produto tenha suas configurações próprias de peso e dimensões.
+- É possível informar também um **Prazo de Fabricação** (em dias) do produto, caso necessário. Esse será adicionado ao prazo de entrega apresentado em sua loja.
+
+#### **Atenção:** 
+- É importante considerar as **dimensões** e **peso** do produto embalado pronto para envio/postagem.
+
+- É obrigatório ter esses dados configurados em cada produto para que seja possível calcular o frete de forma eficiente.
+
+- Caso as dimensões não forem informadas, serão utilizadas as medidas padrões informadas na [Configuração do módulo](#_1-configuracao-do-modulo). Contudo, recomendamos que cada produto tenha suas próprias configurações de **dimensões** e **peso** separadamente, para cálculo de frete mais preciso.
 
 #### 4. Categorias
-- É necessário relacionar cada categoria da sua loja com as categorias do Frete Rápido em: Catalog > Manage Categories > Categoria no Frete Rápido.
 
-![Configuração de categorias ](app/code/community/Freterapido/Freterapido/docs/img/categories_settings.PNG "Configuração de categorias")
+- Caso tenha interesse em aplicar campanhas de regra de frete por categoria de produtos, será importante relacionar as categorias da sua loja com as categorias da Frete Rápido. Para isso, basta relacioná-las em:
+	- [EN] **Catalog** > **Manage Categories** > [**Select a category**] >  **Categoria no Frete Rápido**.
+	- [PT] **Catálogo** > **Categorias** > [**Seleciona categoria**] > **Categoria**
 
-> **Obs:** Nem todas as categorias da sua loja podem coincidir com a relação de categorias do Frete Rápido, mas é possível relacioná-las de forma ampla.
+<img style="display: block; margin-left: auto; margin-right: auto; max-width: 101%;" src="https://freterapido.com/wiki/magento_1.9/images/categories_settings.PNG" alt="transportadoras para e-commerce magento, cotações de frete, cotar frete" title="Configuração de categorias">
+
+> **Obs:** Nem todas as categorias da sua loja podem coincidir com a relação de categorias do Frete Rápido, mas é possível relacioná-las de forma ampla. Exemplos:
 >
-> **Exemplo 1**: Moda feminina -> Vestuário
+> **Moda feminina** -> **Vestuário**
 >
-> **Exemplo 2**: CDs -> CD / DVD / Blu-Ray
+> **CDs** -> **CD / DVD / Blu-Ray**
 >
-> **Exemplo 3**: Violões -> Instrumento Musical
+> **Violões** -> **Instrumento Musical**
 
 --------
 
-### Contratação do Frete
-É possível contratar o frete diretamente na área administrativa da loja, no detalhamento do pedido do cliente.
+## Contratação do Frete
+É possível fechar o fluxo e contratar o frete e gerar uma solicitação de coleta diretamente da área administrativa da sua loja, no detalhamento do pedido do cliente.
 
-* Abra o pedido (Sales > Orders) e clique no botão **"Ship"**.
-![Caminho para contratar o frete](app/code/community/Freterapido/Freterapido/docs/img/order.png "Detalhamento do pedido")
+* Abra o pedido e clique no botão **"Ship"** / **"Envio"**.
 
-* Você será redirecionado para a tela de confirmação do frete. Após conferir as informações, clique no botão **"Submit Shipment"**
-![Confirmação da contratação do frete](app/code/community/Freterapido/Freterapido/docs/img/confirm_order.PNG "Detalhes do frete")
-* Neste momento, o Frete Rápido irá solicitar a coleta/despacho dos itens do pedido à transportadora escolhida.
+<img style="display: block; margin-left: auto; margin-right: auto;" src="https://freterapido.com/wiki/magento_1.9/images/order.png" alt="contratar transportadoras para e-commerce, gateway frete, api de frete json" title="Detalhamento do pedido">
 
+<br>
+
+* Você será redirecionado para a tela de confirmação do frete. Após conferir as informações, clique no botão **"Submit Shipment"** / **"Enviar remessa"**
+
+<img style="display: block; margin-left: auto; margin-right: auto;" src="https://freterapido.com/wiki/magento_1.9/images/confirm_order.png" alt="integração de frete, integrações de frete" title="Confirmação da contratação do frete">
+
+* Neste momento a Frete Rápido irá receber a confirmação e solicitar a coleta à transportadora escolhida.
 --------
 
-### Cálculo do frete na página do produto
-![Configurando o bloco de cálculo do frete na página do produto](app/code/community/Freterapido/Freterapido/docs/img/product_page_config.png "Configuração do bloco de cálculo do frete")
+## Cálculo do frete na página do produto
 
-- **Habilitar:** Habilita ou desabilita o bloco de cálculo na página do produto.
-- **Posição de exibição:** Permite escolher a posição do bloco no layout da página do produto (o funcionamento dependerá da disposição do layout). As opções são:
-	- Coluna da direita: adiciona na coluna da direita (caso haja).
-	- Coluna da esquerda adiciona na coluna da esquerda (caso haja).
-	- Bloco de informação adicional: adiciona após o bloco de descrição.
-	- Layout personalizado: permite personalizar a posição no campo **Alias de posicionamento do bloco**.
+- O módulo também permite habilitar o cálculo de frete na páginga do produto, para cotar opções de frete para um produto sem precisar colocá-lo no carrinho.
+- Basta apenas habilitar e configurar conforme exemplo abaixo: 
+
+<img style="display: block; margin-left: auto; margin-right: auto;" src="https://freterapido.com/wiki/magento_1.9/images/product_page_config.png" alt="contratar transportadoras, api de frete, api gateway transportadora" title="Configuração do bloco de cálculo do frete">
+
+- **Habilitar:** [Yes / No] Habilita ou desabilita o bloco de cálculo de frete na página do produto.
+- **Posição de exibição:** Permite escolher a posição do bloco no layout da página do produto (**o funcionamento dependerá da disposição do layout da sua loja**). As opções são:
+	- **Coluna da direita**: adiciona na coluna da direita (caso haja).
+	- **Coluna da esquerda**: adiciona na coluna da esquerda (caso haja).
+	- **Bloco de informação adicional**: adiciona após o bloco de descrição.
+	- **Layout personalizado**: permite personalizar a posição no campo **Alias de posicionamento do bloco**.
 
 - **Posicionamento relativo:** Permite escolher a posição do bloco em relação aos outros blocos da página.
 - **Alias de posicionamento do bloco:** Permite especificar um bloco para ser substituído pelo bloco de cálculo do frete.
 
+----
+
+**Atenção!**
+A Frete Rápido irá realizar cotações de frete para os pedidos com base nas informações que você configurou na integração e conforme as informações dos pedidos que são disponibilizados.
+
+Nós não nos responsabilizamos por eventuais dados inconsistentes que possam ser enviados a nós através da integração, tais como: peso do produto fora da realidade, dimensões erradas, quantidade de itens errada, dados faltantes, etc...
+
+Para haver a certa contratação de fretes para os pedidos, certifique-se que os dados estejam corretos antes e durante a integração com a Frete Rápido. Toda configuração do módulo é de responsabilidade do embarcador.
+
 --------
 
-### Observações gerais:
-1. Para obter cotações dos Correios é necessário configurar o seu contrato com os Correios no [Painel administrativo do Frete Rápido][2] > Empresa > Integração.
+## Considerações finais:
+1. Para obter cotações de frete dos Correios é necessário configurar o seu contrato com os Correios no [Painel administrativo do Frete Rápido][2] > Integrações > Correios.
+
 2. Esse módulo atende solicitações de coleta para destinatários Pessoa Física. Para atender Pessoas Jurídicas, o módulo pode ser adaptado por você de acordo com a [API da Frete Rápido][9].
 
 --------
@@ -147,15 +178,15 @@ Encontrou algum bug ou tem sugestões de melhorias no código? Sensacional! Não
 --------
 
 ### Licença
+
 [MIT][5]
 
-
 [1]: https://marketplace.magento.com/freterapido-frete-rapido.html "Magento Connect"
-[2]: https://painel.freterapido.com "Painel do Frete Rápido"
-[3]: mailto:suporte@freterapido.com "E-mail para a galera super gente fina :)"
+[2]: https://painel.freterapido.com/?origin=doc_magento "Painel do Frete Rápido"
+[3]: mailto:suporte@freterapido.com "Contato uma galera super gente fina :)"
 [4]: https://github.com/freterapido/freterapido_magento/archive/master.zip
 [5]: https://github.com/freterapido/freterapido_magento/blob/master/LICENSE
 [6]: https://github.com/freterapido/freterapido_magento/blob/master/README.md
 [7]: https://github.com/freterapido/freterapido_magento/blob/master/README_EN.md
-[8]: http://devdocs.magento.com
+[8]: http://devdocs.magento.com/
 [9]: https://dev.freterapido.com
