@@ -18,7 +18,7 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
 
             $this->_options[] = array('label' => 'Abrasivos', 'value' => 1);
             $this->_options[] = array('label' => 'Adubos / Fertilizantes', 'value' => 2);
-            $this->_options[] = array('label' => 'Alimentos', 'value' => 3);
+            $this->_options[] = array('label' => 'Alimentos perecíveis', 'value' => 3);
             $this->_options[] = array('label' => 'Artigos para Pesca', 'value' => 4);
             $this->_options[] = array('label' => 'Auto Peças', 'value' => 5);
             $this->_options[] = array('label' => 'Bebidas / Destilados', 'value' => 6);
@@ -28,7 +28,7 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
             $this->_options[] = array('label' => 'CD / DVD / Blu-Ray', 'value' => 10);
             $this->_options[] = array('label' => 'Combustíveis / Óleos', 'value' => 11);
             $this->_options[] = array('label' => 'Confecção', 'value' => 12);
-            $this->_options[] = array('label' => 'Cosméticos / Perfumaria', 'value' => 13);
+            $this->_options[] = array('label' => 'Cosméticos', 'value' => 13);
             $this->_options[] = array('label' => 'Couro', 'value' => 14);
             $this->_options[] = array('label' => 'Derivados Petróleo', 'value' => 15);
             $this->_options[] = array('label' => 'Descartáveis', 'value' => 16);
@@ -37,7 +37,7 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
             $this->_options[] = array('label' => 'Eletrodomésticos', 'value' => 19);
             $this->_options[] = array('label' => 'Embalagens', 'value' => 20);
             $this->_options[] = array('label' => 'Explosivos / Pirotécnicos', 'value' => 21);
-            $this->_options[] = array('label' => 'Farmacêutico / Medicamentos', 'value' => 22);
+            $this->_options[] = array('label' => 'Medicamentos', 'value' => 22);
             $this->_options[] = array('label' => 'Ferragens', 'value' => 23);
             $this->_options[] = array('label' => 'Ferramentas', 'value' => 24);
             $this->_options[] = array('label' => 'Fibras Ópticas', 'value' => 25);
@@ -58,7 +58,7 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
             $this->_options[] = array('label' => 'Material Gráfico', 'value' => 40);
             $this->_options[] = array('label' => 'Material Hospitalar', 'value' => 41);
             $this->_options[] = array('label' => 'Material Odontológico', 'value' => 42);
-            $this->_options[] = array('label' => 'Material Pet Shop / Rações', 'value' => 43);
+            $this->_options[] = array('label' => 'Material Pet Shop', 'value' => 43);
             $this->_options[] = array('label' => 'Material Veterinário', 'value' => 44);
             $this->_options[] = array('label' => 'Móveis montados', 'value' => 45);
             $this->_options[] = array('label' => 'Moto Peças', 'value' => 46);
@@ -89,6 +89,15 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
             $this->_options[] = array('label' => 'Simulacro de Arma / Airsoft', 'value' => 71);
             $this->_options[] = array('label' => 'Arquearia', 'value' => 72);
             $this->_options[] = array('label' => 'Acessórios de Arquearia', 'value' => 73);
+            $this->_options[] = array('label' => 'Alimentos não perecíveis', 'value' => 74);
+            $this->_options[] = array('label' => 'Caixa de embalagem', 'value' => 75);
+            $this->_options[] = array('label' => 'TV / Monitores', 'value' => 76);
+            $this->_options[] = array('label' => 'Linha Branca', 'value' => 77);
+            $this->_options[] = array('label' => 'Vitaminas / Suplementos nutricionais', 'value' => 78);
+            $this->_options[] = array('label' => 'Malas / Mochilas', 'value' => 79);
+            $this->_options[] = array('label' => 'Máquina / Equipamentos', 'value' => 80);
+            $this->_options[] = array('label' => 'Rações / Alimento para Animal', 'value' => 81);
+            $this->_options[] = array('label' => 'Artigos para Camping', 'value' => 82);
             $this->_options[] = array('label' => 'Outros', 'value' => 999);
         }
 
