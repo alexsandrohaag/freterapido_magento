@@ -7,4 +7,4 @@
 
 ## install sampledata
 
-* docker-compose run --rm magento install-sampledata
+* docker-compose exec magento install-sampledata

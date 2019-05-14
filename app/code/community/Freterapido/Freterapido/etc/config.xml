@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Freterapido_Freterapido>
-            <version>1.3.2</version>
+            <version>1.3.3</version>
             <depends>
                 <Mage_shipping />
             </depends>
@@ -61,6 +61,9 @@
                         <fr_volume_largura />
                         <fr_volume_comprimento />
                         <fr_volume_prazo_fabricacao />
+                        <fr_volume_consolidar />
+                        <fr_volume_sobreposto />
+                        <fr_volume_tombar />
                     </product_attributes>
                 </item>
             </quote>

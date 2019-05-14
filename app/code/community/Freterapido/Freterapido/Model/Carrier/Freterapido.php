@@ -287,6 +287,41 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
         return $client->request('POST');
     }
 
+    protected function _methodTitle($carrier)
+    {
+        $description_offer = (int)$this->getConfigData('generic_description_offer');
+
+        switch ($description_offer) {
+            case 1: //Nome da transportadora
+                $title = $carrier->nome;
+                break;
+            case 2: // Nome da transportadora - Serviço
+                $title = "{$carrier->nome} - {$carrier->servico}";
+                break;
+            case 3: // Nome da transportadora - Descricao serviço
+                $title = "{$carrier->nome} - {$carrier->descricao_servico}";
+                break;
+            case 4: // Serviço
+                $title = $carrier->servico;
+                break;
+            case 5: // Descricao serviço
+                $title = $carrier->descricao_servico;
+                break;
+            case 6: // serviço - Descricao serviço
+                $title = "{$carrier->servico} - {$carrier->descricao_servico}";
+                break;
+            default: // Nome da transportadora [ - Serviço (correios)]
+                $title = $carrier->nome;
+                if (strtolower($carrier->nome) == 'correios') {
+                    $title .= " - {$carrier->servico}";
+                }
+                break;
+        }
+
+        $function = function_exists('mb_strtoupper') ? 'mb_strtoupper' : 'strtoupper';
+        return $function(trim($title, " -"));
+    }
+
     /**
      * Adiciona o retorno de cada Transportadora no resultado
      *
@@ -294,9 +329,7 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
      */
     protected function _appendShippingReturn($carrier)
     {
-        if (strtolower($carrier->nome) == 'correios') {
-            $carrier->nome = strtoupper($carrier->nome . ' - ' . $carrier->servico);
-        }
+        $carrier->method_title = $this->_methodTitle($carrier);
 
         // Seta o nome do método
         $shipping_method = $this->_offer_token . '_' . $carrier->oferta;
@@ -312,13 +345,13 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
 
         $deadline_msg = $deadline > 1 ? 'dias úteis' : 'dia útil';
 
-        if (0 == $carrier->preco_frete) {
-            $carrier->nome = 'FRETE GRÁTIS';
+        if ($carrier->preco_frete == 0) {
+            $carrier->method_title = 'FRETE GRÁTIS';
         }
 
         $method->setMethodTitle(sprintf(
             $this->getConfigData('msgprazo'),
-            $carrier->nome,
+            $carrier->method_title,
             $deadline,
             $deadline_msg
         ));
@@ -395,8 +428,8 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
                 $this->_volumes[$sku] = ['quantidade' => 0, 'peso' => 0, 'valor' => 0];
             }
 
-            $this->_volumes[$sku]['tipo']        = (int) $type;
-            $this->_volumes[$sku]['quantidade'] += (int) $quantity;
+            $this->_volumes[$sku]['tipo']        = (int)$type;
+            $this->_volumes[$sku]['quantidade'] += (int)$quantity;
             $this->_volumes[$sku]['peso']       += $this->_weightVerify($weight);
             $this->_volumes[$sku]['valor']      += $value;
 
@@ -429,7 +462,8 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
      * Tenta obter as medidas do produto, se for 0 ou vazio tenta obter as medidas genéricas preenchidas na configuração
      * caso também não esteja preenchido ou seja = 0, retorna valor informado como $def
      */
-    protected function _getDimensions($product, $fr_volume, $generic = null, $def = null) {
+    protected function _getProductConfigFr($product, $fr_volume, $generic = null, $def = null)
+    {
         $product_value = $product->getData("fr_volume_{$fr_volume}");
         if (!empty($product_value)) {
             return $product_value;
@@ -455,19 +489,25 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
     {
         $product = $item->getProduct();
 
-        $height = $this->_getDimensions($product, 'altura', 'height', 0);
-        $width  = $this->_getDimensions($product, 'largura', 'width', 0);
-        $length = $this->_getDimensions($product, 'comprimento', 'length', 0);
-        $prazo_fabricacao = $this->_getDimensions($product, 'prazo_fabricacao');
+        $height           = $this->_getProductConfigFr($product, 'altura', 'height', 0);
+        $width            = $this->_getProductConfigFr($product, 'largura', 'width', 0);
+        $length           = $this->_getProductConfigFr($product, 'comprimento', 'length', 0);
+        $prazo_fabricacao = $this->_getProductConfigFr($product, 'prazo_fabricacao');
+        $consolidar       = $this->_getProductConfigFr($product, 'consolidar', 'consolidate', false);
+        $sobreposto       = $this->_getProductConfigFr($product, 'sobreposto', 'overlaid', false);
+        $tombar           = $this->_getProductConfigFr($product, 'tombar', 'topple', false);
 
         if (!empty($prazo_fabricacao) && $prazo_fabricacao > $this->_manufacturing_time) {
             $this->_manufacturing_time = $prazo_fabricacao;
         }
 
-        $this->_volumes[$sku]['sku'] = $sku;
-        $this->_volumes[$sku]['altura'] = (float)$height / 100;      // Converte para metros
-        $this->_volumes[$sku]['largura'] = (float)$width / 100;      // Converte para metros
+        $this->_volumes[$sku]['sku']         = $sku;
+        $this->_volumes[$sku]['altura']      = (float)$height / 100; // Converte para metros
+        $this->_volumes[$sku]['largura']     = (float)$width / 100;  // Converte para metros
         $this->_volumes[$sku]['comprimento'] = (float)$length / 100; // Converte para metros
+        $this->_volumes[$sku]['consolidar']  = (bool)$consolidar;
+        $this->_volumes[$sku]['sobreposto']  = (bool)$sobreposto;
+        $this->_volumes[$sku]['tombar']      = (bool)$tombar;
     }
 
     /**

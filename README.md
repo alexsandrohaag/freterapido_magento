@@ -4,7 +4,7 @@
 
 ### **Módulo para plataforma Magento**
 
-Versão do módulo: 1.3.2
+Versão do módulo: 1.3.3
 
 Compatibilidade com Magento: **1.9.x**
 

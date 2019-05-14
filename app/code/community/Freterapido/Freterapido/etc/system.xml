@@ -32,7 +32,7 @@
                         <a href="http://www.freterapido.com" target="_blank">
                         <img src="https://freterapido.com/imgs/frete_rapido.png" style="margin: auto" />
                         </a>
-                        <p><strong>Versão 1.3.2</strong></p>
+                        <p><strong>Versão 1.3.3</strong></p>
                         <div style="padding-top: 10px;">
                             Configure abaixo a sua conta com os dados da loja para obter as cotações de frete através do Frete Rápido.
                             </br>
@@ -158,10 +158,50 @@
                             <show_in_store>1</show_in_store>
                             <comment>Escolha um limite de resultados</comment>
                         </limit>
+                        <generic_consolidate translate="label">
+                            <label>Consolidar</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>ATENÇÃO: Caso habilitado esta opção afetará todos os produtos da loja</comment>
+                        </generic_consolidate>
+                        <generic_overlaid translate="label">
+                            <label>Sobreposto</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>ATENÇÃO: Caso habilitado esta opção afetará todos os produtos da loja</comment>
+                        </generic_overlaid>
+                        <generic_topple translate="label">
+                            <label>Tombar</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>ATENÇÃO: Caso habilitado esta opção afetará todos os produtos da loja</comment>
+                        </generic_topple>
+                        <generic_description_offer>
+                            <label>Descrição da oferta</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Freterapido_Freterapido_Model_Source_DescriptionOffer</source_model>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Escolha a forma que as ofertas serão apresentadas</comment>
+                        </generic_description_offer>
                         <token translate="label">
                             <label>Token</label>
                             <frontend_type>text</frontend_type>
-                            <sort_order>17</sort_order>
+                            <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

@@ -6,7 +6,7 @@
 
 ### **Magento Platform Module**
 
-Version: **1.3.2**
+Version: **1.3.3**
 
 Magento compatibility: **1.9.x**
 
