@@ -464,7 +464,14 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
      */
     protected function _getProductConfigFr($product, $fr_volume, $generic = null, $def = null)
     {
+        // Consuta informação nos atributos da Frete Rápido
         $product_value = $product->getData("fr_volume_{$fr_volume}");
+        if (!empty($product_value)) {
+            return $product_value;
+        }
+
+        // Consulta informaçao do volume com padrão de outros modulos já instalado
+        $product_value = $product->getData("volume_{$fr_volume}");
         if (!empty($product_value)) {
             return $product_value;
         }
