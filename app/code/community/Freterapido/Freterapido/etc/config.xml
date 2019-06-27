@@ -104,4 +104,15 @@
             </freterapido>
         </carriers>
     </default>
+    <frontend>
+        <routers>
+            <Freterapido_FreterapidoOccurrencesRoute>
+                <use>standard</use>
+                <args>
+                    <module>Freterapido_Freterapido</module>
+                    <frontName>freterapido-occurrences</frontName>
+                </args>
+            </Freterapido_FreterapidoOccurrencesRoute>
+        </routers>
+    </frontend>
 </config>
