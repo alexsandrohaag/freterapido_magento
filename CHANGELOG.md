@@ -32,7 +32,7 @@ Estes atributos servirão para indicar qual atributo será utilizado pelo módul
 #### **Categorias :**
 	- Produtos Químicos -> Produto Químico Não Classificado;
 
-####**Cotação / Contratação de frete :**
+#### **Cotação / Contratação de frete :**
 	- Alterado o método de recuperação dos dados do destinatário do frete para obter, caso exista, dados como CNPJ e Inscrição Eestadual (este último quando informado o atributo customizável)
 	- Implementação de filtros que permitam apenas números nos campos de CNPJ/CPF e Inscrição estadual do destinatário/remetente;
 	- Alteração da imagem do MySql de mysql:5.6.23 para mariadb:10.1
