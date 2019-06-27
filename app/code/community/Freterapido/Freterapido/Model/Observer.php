@@ -44,7 +44,7 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
 
     public function quote($observer)
     {
-        $active = (boolean) Mage::helper($this->_code)->getConfigData('active');
+        $active = (boolean)Mage::helper($this->_code)->getConfigData('active');
 
         // Se o módulo não estiver ativo, ignora a contratação pelo Frete Rápido
         if (!$active) {
@@ -63,30 +63,22 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
         try {
             $this->_increment_id = $_order->getIncrementId();
 
-            // O magento connect não permite verificar direto no método
-            $_customer_id = $_shipment->getCustomerId();
-            $_vat_id = $_order->getShippingAddress()->getData('vat_id');
+            // Retornando o cpf/cnpj do destinatário
+            $_cnpj_cpf = preg_replace("/\D/", '', $_order->getShippingAddress()->getData('vat_id'));
 
-            // Verifica se o checkout foi feito com o usuário logado ou não, pois a forma de obter o cnpj/cpf é diferente em cada caso
-            if (!empty($_customer_id)) {
-                $_cnpj_cpf = Mage::getModel('customer/customer')->load($_customer_id)->getData('taxvat');
-            } elseif (!empty($_vat_id)) {
-                $_cnpj_cpf = $_vat_id;
-            } else {
-                $_cnpj_cpf = $_order->getData('customer_taxvat');
-            }
+            //Retornando a inscrição estadual pelo atributo customizado
+            $ref_attr = Mage::helper($this->_code)->getConfigData('ref_attr_state_registration_type');
+            $_state_registration = preg_replace("/\D/", '', $_order->getShippingAddress()->getData($ref_attr));
 
             if (empty($_cnpj_cpf)) {
                 throw new Exception('O CNPJ/CPF do destinatário não foi informado.');
             }
 
-            $_cnpj_cpf = preg_replace("/\D/", '', $_cnpj_cpf);
-
             $this->_log('Iniciando contratação...');
 
             $this->_getSender();
 
-            $this->_getReceiver($_order, $_cnpj_cpf);
+            $this->_getReceiver($_order, $_cnpj_cpf, $_state_registration);
 
             $this->_getOffer($_order->getShippingMethod());
 
@@ -118,7 +110,7 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
             Mage::getStoreConfig('shipping/origin', $this->getStore());
 
             $this->_sender = array();
-            $this->_sender['cnpj'] = Mage::getStoreConfig('carriers/freterapido/shipper_cnpj');
+            $this->_sender['cnpj'] = preg_replace("/\D/", '', Mage::getStoreConfig('carriers/freterapido/shipper_cnpj'));
         } catch (Exception $e) {
             $this->_throwError('Erro ao tentar obter os dados de origem. Erro: ' . $e->getMessage());
         }
@@ -128,15 +120,17 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
      * @param  Mage_Shipping_Model_Rate_Request $request
      * @return bool
      */
-    protected function _getReceiver($order, $cnpj_cpf)
+    protected function _getReceiver($order, $cnpj_cpf, $_state_registration)
     {
         try {
-            $name = $order->getShippingAddress()->getFirstname()
-                . ' '
-                . $order->getShippingAddress()->getLastname();
+            $name = $order->getShippingAddress()->getFirstname() . ' ' . $order->getShippingAddress()->getLastname();
+            $cnpjcpf            = preg_replace("/\D/", '', $cnpj_cpf);
+            $state_registration = preg_replace("/\D/", '', $_state_registration);
 
             $this->_receiver = array();
-            $this->_receiver['cnpj_cpf'] = preg_replace("/\D/", '', $cnpj_cpf);
+            $this->_receiver['tipo_pessoa'] = strlen($cnpjcpf) == 14 ? 2 : 1;
+            $this->_receiver['cnpj_cpf'] = $cnpjcpf;
+            $this->_receiver['inscricao_estadual'] = !empty($state_registration) ? $state_registration : 'ISENTO';
             $this->_receiver['nome'] = $name;
             $this->_receiver['email'] = $order->getShippingAddress()->getEmail();
             $this->_receiver['telefone'] = preg_replace("/\D/", '', $order->getShippingAddress()->getTelephone());
