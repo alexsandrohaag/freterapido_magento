@@ -8,27 +8,27 @@
 
 Estes atributos servirão para indicar qual atributo será utilizado pelo módulo no momento da obtenção dos seus respectivos valores;
 
-	 - `ref_attr_height_type`-> Atributo referente à altura;
-	 - `ref_attr_width_type` -> Atributo referente à largura;
-	 - `ref_attr_length_type`-> Atributo referente ao comprimento;
-	 - `ref_attr_state_registration_type` -> Atributo referente à Insc. Estadual do destinatário;
-	 - Implementação de função para retorno dos valores dos produtos referenciados pelos atrbutos acima;
-	 - Implementação das classes necessárias para que os atributos sejam exibidos no front;
+	- `ref_attr_height_type`-> Atributo referente à altura;
+	- `ref_attr_width_type` -> Atributo referente à largura;
+	- `ref_attr_length_type`-> Atributo referente ao comprimento;
+	- `ref_attr_state_registration_type` -> Atributo referente à Insc. Estadual do destinatário;
+	- Implementação de função para retorno dos valores dos produtos referenciados pelos atrbutos acima;
+	- Implementação das classes necessárias para que os atributos sejam exibidos no front;
 
 #### **Categorias**
 
-	- 	Produto Químico Não Classificado;
-	- 	Pilhas / Baterias;
-	- 	Estiletes / Materiais cortantes;
-	- 	Produto Químico Classificado;
-	- 	Limpeza;
-	- 	Extintores;
-	- 	Equipamentos de segurança / EPI;
+	- Produto Químico Não Classificado;
+	- Pilhas / Baterias;
+	- Estiletes / Materiais cortantes;
+	- Produto Químico Classificado;
+	- Limpeza;
+	- Extintores;
+	- Equipamentos de segurança / EPI;
 
 #### **Webhook**
 
-	 - Inclusão no arquivo de configuração do módulo, dos dados necessários para configurar a rota do webhook no qual a Frete Rápido irá utilizar para atualizar os status dos pedidos;
-	  - Inclusão do controller para manipular as requisições recebidas pela Frete Rápido;
+	- Inclusão no arquivo de configuração do módulo, dos dados necessários para configurar a rota do webhook no qual a Frete Rápido irá utilizar para atualizar os status dos pedidos;
+	- Inclusão do controller para manipular as requisições recebidas pela Frete Rápido;
 
 ### Alterado
 
