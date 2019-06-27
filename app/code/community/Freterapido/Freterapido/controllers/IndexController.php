@@ -74,6 +74,8 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
             }
 
             $shipment = (object)$shipment;
+            $shipment->track_number = str_replace('#', '', $shipment->track_number);
+            $occurrence->id_frete = str_replace('#', '', $occurrence->id_frete);
 
             if ($shipment->track_number != $occurrence->id_frete) {
                 $this->_response(404, '', "O pedido informado não possui envio pela Frete Rápido - ID pedido: {$occurrence->numero_pedido}");
