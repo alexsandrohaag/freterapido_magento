@@ -36,6 +36,7 @@ Estes atributos servirão para indicar qual atributo será utilizado pelo módul
 
 	- Produtos Químicos -> Produto Químico Não Classificado;
 
+<<<<<<< HEAD
 ####**Cotação / Contratação de frete**
 	- Alterado o método de recuperação dos dados do destinatário do frete para obter, caso exista, dados como CNPJ e Inscrição Eestadual (este último quando informado o atributo customizável)
 	- Implementação de filtros que permitam apenas números nos campos de CNPJ/CPF e Inscrição estadual do destinatário/remetente;
@@ -65,3 +66,9 @@ Estes atributos servirão para indicar qual atributo será utilizado pelo módul
 	- Cosméticos / Perfumaria-> Cosméticos;
 	- Farmacêutico / Medicamentos -> Medicamentos;
 	- Material Pet Shop / Rações -> Material Pet Shop;
+=======
+#### **Cotação / Contratação de frete :**
+	- Alterado o método de recuperação dos dados do destinatário do frete para obter, caso exista, dados como CNPJ e Inscrição Eestadual (este último quando informado o atributo customizável)
+	- Implementação de filtros que permitam apenas números nos campos de CNPJ/CPF e Inscrição estadual do destinatário/remetente;
+	- Alteração da imagem do MySql de mysql:5.6.23 para mariadb:10.1
+>>>>>>> 6711966a69584e8a9da89b8fc45a8af375eda016
