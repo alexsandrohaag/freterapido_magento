@@ -44,7 +44,7 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
             $this->_options[] = array('label' => 'Fonográfico', 'value' => 26);
             $this->_options[] = array('label' => 'Fotográfico', 'value' => 27);
             $this->_options[] = array('label' => 'Fraldas / Geriátricas', 'value' => 28);
-            $this->_options[] = array('label' => 'Higiene / Limpeza', 'value' => 29);
+            $this->_options[] = array('label' => 'Higiene', 'value' => 29);
             $this->_options[] = array('label' => 'Impressos', 'value' => 30);
             $this->_options[] = array('label' => 'Informática / Computadores', 'value' => 31);
             $this->_options[] = array('label' => 'Instrumento Musical', 'value' => 32);
@@ -68,7 +68,7 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
             $this->_options[] = array('label' => 'Material plástico', 'value' => 50);
             $this->_options[] = array('label' => 'Pneus e Borracharia', 'value' => 51);
             $this->_options[] = array('label' => 'Produtos Cerâmicos', 'value' => 52);
-            $this->_options[] = array('label' => 'Produtos Químicos', 'value' => 53);
+            $this->_options[] = array('label' => 'Produto Químico Não Classificado', 'value' => 53);
             $this->_options[] = array('label' => 'Produtos Veterinários', 'value' => 54);
             $this->_options[] = array('label' => 'Revistas', 'value' => 55);
             $this->_options[] = array('label' => 'Sementes', 'value' => 56);
@@ -98,6 +98,12 @@ class Freterapido_Freterapido_Model_Source_Categoriesfr extends Mage_Eav_Model_E
             $this->_options[] = array('label' => 'Máquina / Equipamentos', 'value' => 80);
             $this->_options[] = array('label' => 'Rações / Alimento para Animal', 'value' => 81);
             $this->_options[] = array('label' => 'Artigos para Camping', 'value' => 82);
+            $this->_options[] = array('label' => 'Pilhas / Baterias', 'value' => 83);
+            $this->_options[] = array('label' => 'Estiletes / Materiais cortantes', 'value' => 84);
+            $this->_options[] = array('label' => 'Produto Químico Classificado', 'value' => 85);
+            $this->_options[] = array('label' => 'Limpeza', 'value' => 86);
+            $this->_options[] = array('label' => 'Extintores', 'value' => 87);
+            $this->_options[] = array('label' => 'Equipamentos de segurança / EPI', 'value' => 88);
             $this->_options[] = array('label' => 'Outros', 'value' => 999);
         }
 
