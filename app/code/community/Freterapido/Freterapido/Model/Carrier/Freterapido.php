@@ -164,11 +164,35 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
 
     protected function _getReceiver(Mage_Shipping_Model_Rate_Request $request)
     {
+        $order = false;
+        $cnpj_cpf = '';
+        $ref_attr = Mage::helper($this->_code)->getConfigData('ref_attr_state_registration_type');
+
+        foreach ($request->getAllItems() as $item) {
+            $order = $item->getQuote();
+            break;
+        }
+
+        //Se conseguir localizar o pedido, pega os dados por ele
+        if ($order) {
+            $cnpj_cpf = preg_replace(" /\D/", '', $order->getShippingAddress()->getData('vat_id'));
+            $state_registration = preg_replace(" /\D/", '', $order->getShippingAddress()->getData($ref_attr));
+            $post_code = $order->getShippingAddress()->getPostcode();
+        }
+
+        $post_code = !empty($post_code) ? $post_code : $request->getDestPostcode();
+
+        // Seta como pessoa física ou jurídica conforme o cpf/cnpj retornado
         $this->_receiver = array();
-        // Seta como pessoa física
-        $this->_receiver['tipo_pessoa'] = 1;
+        $this->_receiver['tipo_pessoa'] = strlen($cnpj_cpf) == 14 ? 2 : 1;
+        $this->_receiver['cnpj_cpf'] = $cnpj_cpf;
+
+        if ($this->_receiver['tipo_pessoa'] == 2) {
+            $this->_receiver['inscricao_estadual'] = !empty($state_registration) ? $state_registration : 'ISENTO';
+        }
+
         // Recupera o CEP digitado pelo usuário
-        $this->_receiver['endereco']['cep'] = $this->_formatZipCode($request->getDestPostcode());
+        $this->_receiver['endereco']['cep'] = $this->_formatZipCode($post_code);
 
         return true;
     }
@@ -464,6 +488,15 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
      */
     protected function _getProductConfigFr($product, $fr_volume, $generic = null, $def = null)
     {
+        //Consulta um valor baseado nas configurações do atributo
+        $ref_attr = $this->getConfigData("ref_attr_{$generic}_type");
+        if (!empty($ref_attr)) {
+            $attribute = $product->getData($ref_attr);
+            if (!empty($attribute)) {
+                return $attribute;
+            }
+        }
+
         // Consuta informação nos atributos da Frete Rápido
         $product_value = $product->getData("fr_volume_{$fr_volume}");
         if (!empty($product_value)) {
