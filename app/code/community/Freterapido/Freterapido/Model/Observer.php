@@ -44,7 +44,7 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
 
     public function quote($observer)
     {
-        $active = (boolean)Mage::helper($this->_code)->getConfigData('active');
+        $active = (bool) Mage::helper($this->_code)->getConfigData('active');
 
         // Se o módulo não estiver ativo, ignora a contratação pelo Frete Rápido
         if (!$active) {
@@ -62,13 +62,31 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
 
         try {
             $this->_increment_id = $_order->getIncrementId();
+            $_customer = Mage::getModel('customer/customer')->load($_order->getCustomerId());
 
             // Retornando o cpf/cnpj do destinatário
-            $_cnpj_cpf = preg_replace("/\D/", '', $_order->getShippingAddress()->getData('vat_id'));
+            $_cnpj_cpf = $_order->getShippingAddress()->getData('vat_id');
+
+            if (empty($_cnpj_cpf)) {
+                // Busca o cnpj do customer
+                if (!empty($_customer->getId())) {
+                    $_cnpj_cpf = $_customer->getData('taxvat');
+                }
+            }
 
             //Retornando a inscrição estadual pelo atributo customizado
             $ref_attr = Mage::helper($this->_code)->getConfigData('ref_attr_state_registration_type');
-            $_state_registration = preg_replace("/\D/", '', $_order->getShippingAddress()->getData($ref_attr));
+            $_state_registration = $_order->getShippingAddress()->getData($ref_attr);
+
+            if (empty($_state_registration)) {
+                // Busca o cnpj do customer
+                if (!empty($_customer->getId())) {
+                    $_state_registration = $_customer->getData($ref_attr);
+                }
+            }
+
+            $_cnpj_cpf = preg_replace("/\D/", '', $_cnpj_cpf);
+            $_state_registration = preg_replace("/\D/", '', $_state_registration);
 
             if (empty($_cnpj_cpf)) {
                 throw new Exception('O CNPJ/CPF do destinatário não foi informado.');

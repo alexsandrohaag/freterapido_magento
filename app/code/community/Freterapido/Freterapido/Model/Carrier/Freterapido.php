@@ -175,10 +175,22 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
 
         //Se conseguir localizar o pedido, pega os dados por ele
         if ($order) {
-            $cnpj_cpf = preg_replace(" /\D/", '', $order->getShippingAddress()->getData('vat_id'));
-            $state_registration = preg_replace(" /\D/", '', $order->getShippingAddress()->getData($ref_attr));
+            $cnpj_cpf = $order->getShippingAddress()->getData('vat_id');
+            $state_registration = $order->getShippingAddress()->getData($ref_attr);
             $post_code = $order->getShippingAddress()->getPostcode();
+
+            if (empty($cnpj_cpf)) {
+                $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+                $cnpj_cpf = $customer->getData('taxvat');
+            }
+            if (empty($state_registration)) {
+                $customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+                $state_registration = $customer->getData($ref_attr);
+            }
         }
+
+        $cnpj_cpf = preg_replace("/\D/", '', $cnpj_cpf);
+        $state_registration = preg_replace("/\D/", '', $state_registration);
 
         $post_code = !empty($post_code) ? $post_code : $request->getDestPostcode();
 
@@ -262,7 +274,7 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
                 continue;
             }
 
-            $this->_appendShippingReturn((object)$carrier);
+            $this->_appendShippingReturn((object) $carrier);
         }
     }
 
@@ -284,12 +296,12 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
 
         // Adiciona o filtro caso tenhas sido selecionado
         if ($this->_filter) {
-            $request_data['filtro'] = (int)$this->_filter;
+            $request_data['filtro'] = (int) $this->_filter;
         }
 
         // Adiciona o limite de ofertas disponíveis caso tenhas sido selecionado
         if ($this->_limit) {
-            $request_data['limite'] = (int)$this->_limit;
+            $request_data['limite'] = (int) $this->_limit;
         }
 
         $config = array(
@@ -313,7 +325,7 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
 
     protected function _methodTitle($carrier)
     {
-        $description_offer = (int)$this->getConfigData('generic_description_offer');
+        $description_offer = (int) $this->getConfigData('generic_description_offer');
 
         switch ($description_offer) {
             case 1: //Nome da transportadora
@@ -445,15 +457,15 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
             }
 
             $quantity = $item->getQty() * $qtde_bundle;
-            $weight = (float)$item->getWeight() * $quantity;
-            $value = (float)$item->getBasePrice() * $quantity;
+            $weight = (float) $item->getWeight() * $quantity;
+            $value = (float) $item->getBasePrice() * $quantity;
 
             if (!isset($this->_volumes[$sku])) {
                 $this->_volumes[$sku] = ['quantidade' => 0, 'peso' => 0, 'valor' => 0];
             }
 
-            $this->_volumes[$sku]['tipo']        = (int)$type;
-            $this->_volumes[$sku]['quantidade'] += (int)$quantity;
+            $this->_volumes[$sku]['tipo']        = (int) $type;
+            $this->_volumes[$sku]['quantidade'] += (int) $quantity;
             $this->_volumes[$sku]['peso']       += $this->_weightVerify($weight);
             $this->_volumes[$sku]['valor']      += $value;
 
@@ -542,12 +554,12 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
         }
 
         $this->_volumes[$sku]['sku']         = $sku;
-        $this->_volumes[$sku]['altura']      = (float)$height / 100; // Converte para metros
-        $this->_volumes[$sku]['largura']     = (float)$width / 100;  // Converte para metros
-        $this->_volumes[$sku]['comprimento'] = (float)$length / 100; // Converte para metros
-        $this->_volumes[$sku]['consolidar']  = (bool)$consolidar;
-        $this->_volumes[$sku]['sobreposto']  = (bool)$sobreposto;
-        $this->_volumes[$sku]['tombar']      = (bool)$tombar;
+        $this->_volumes[$sku]['altura']      = (float) $height / 100; // Converte para metros
+        $this->_volumes[$sku]['largura']     = (float) $width / 100;  // Converte para metros
+        $this->_volumes[$sku]['comprimento'] = (float) $length / 100; // Converte para metros
+        $this->_volumes[$sku]['consolidar']  = (bool) $consolidar;
+        $this->_volumes[$sku]['sobreposto']  = (bool) $sobreposto;
+        $this->_volumes[$sku]['tombar']      = (bool) $tombar;
     }
 
     /**
@@ -564,7 +576,7 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
             $new_weight = $weight;
         }
 
-        return (float)number_format($new_weight, 2);
+        return (float) number_format($new_weight, 2);
     }
 
     // ---- Métodos para verificar o tracking dos pedidos ----
