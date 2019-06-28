@@ -73,7 +73,7 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
                 $this->_response(404, '', "Nenhum frete localizado - ID pedido: {$occurrence->numero_pedido}");
             }
 
-            $shipment = (object)$shipment;
+            $shipment = (object) $shipment;
             $shipment->track_number = str_replace('#', '', $shipment->track_number);
             $occurrence->id_frete = str_replace('#', '', $occurrence->id_frete);
 
@@ -84,12 +84,21 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
             $update_date = (new DateTime($occurrence->data_ocorrencia));
             $update_date = $update_date->format('d/m/Y') . ' às ' . $update_date->format('H:i');
 
+            $message = '';
+            if ((isset($occurrence->mensagem)) && (!empty($occurrence->mensagem))){
+                $message = "[{$occurrence->mensagem}]";
+            }
+
             //Atualiza o pedido para finalizado quando entreue para Frete Rápido
-            if (($occurrence->codigo == self::FR_STATUS_ENTREGUE) && ($order->getData('state') != 'complete')) {
+            if ($order->getData('state') != 'complete') {
                 try {
-                    $order->setData('state', "complete");
-                    $order->setStatus("complete");
-                    $history = $order->addStatusHistoryComment("Entrega realizada em {$update_date}", false);
+                    if ($occurrence->codigo == self::FR_STATUS_ENTREGUE) {
+                        $order->setData('state', "complete");
+                        $order->setStatus("complete");
+                        $history = $order->addStatusHistoryComment("Entrega realizada em {$update_date}", false);
+                    } else {
+                        $history = $order->addStatusHistoryComment("{$occurrence->nome} em {$update_date} {$message}", false);
+                    }
                     $history->setIsCustomerNotified(false);
                     $order->save();
                     $this->_response(200, 'Pedido atualizado com sucesso', '');
