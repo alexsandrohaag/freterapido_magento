@@ -32,18 +32,21 @@
                         <a href="http://www.freterapido.com" target="_blank">
                         <img src="https://freterapido.com/imgs/frete_rapido.png" style="margin: auto" />
                         </a>
-                        <p><strong>Versão 1.3.3</strong></p>
+                        <p><strong>Versão 1.3.4</strong></p>
                         <div style="padding-top: 10px;">
                             Configure abaixo a sua conta com os dados da loja para obter as cotações de frete através do Frete Rápido.
                             </br>
                             O token está disponível no seu <a href="https://painel.freterapido.com" target="_blank"<name />Painel administrativo</a>.
                             </br>
-                            Em caso de dúvidas, reporte de bugs ou sugestão de melhorias, acesse a <a href="https://github.com/freterapido/freterapido_magento" target="_blank"<name />documentação deste módulo no Github</a>.
                             </br>
-                        </div>
-                        </div>
-                        <div class="clear"></div>
-                        </div> ]]>
+                            Em caso de dúvidas na configuração do módulo, acesse a <a href="https://freterapido.com/wiki/docs/integrations/magento_1.9/" target="_blank"<name /> documentação na Frete Rápido</a>.
+                            </br>
+                            Em caso de bugs ou sugestão de melhorias, acesse a <a href="https://github.com/freterapido/freterapido_magento" target="_blank"<name />documentação deste módulo no Github</a>.
+                            </br>
+</div>
+</div>
+<div class="clear"></div>
+</div> ]]>
                     </comment>
                     <fields>
                         <active translate="label">
@@ -207,10 +210,50 @@
                             <show_in_store>1</show_in_store>
                             <comment>Token de integração com o Frete Rápido</comment>
                             <!-- <validate>required-entry</validate> -->
-                            <tooltip>
+git                             <tooltip>
                                 Este token é fornecido pelo Frete Rápido. Entre em contato e saiba mais!
                             </tooltip>
                         </token>
+                        <ref_attr_height_type translate="label">
+                            <label>Atributo referente à altura</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Freterapido_Freterapido_Model_Source_ReferenceAttributeType</source_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Atributo que referencia a altura para a Frete Rápido.</comment>
+                        </ref_attr_height_type>
+                        <ref_attr_width_type translate="label">
+                            <label>Atributo referente à largura</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Freterapido_Freterapido_Model_Source_ReferenceAttributeType</source_model>
+                            <sort_order>22</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Atributo que referencia a largura para a Frete Rápido.</comment>
+                        </ref_attr_width_type>
+                        <ref_attr_length_type translate="label">
+                            <label>Atributo referente ao comprimento</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Freterapido_Freterapido_Model_Source_ReferenceAttributeType</source_model>
+                            <sort_order>23</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Atributo que referencia o comprimento para a Frete Rápido.</comment>
+                        </ref_attr_length_type>
+                        <ref_attr_state_registration_type translate="label">
+                            <label>Atributo referente à Insc. Estadual do destinatário</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Freterapido_Freterapido_Model_Source_ReferenceAttributeStateRegistrationType</source_model>
+                            <sort_order>24</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Atributo que referencia a inscrição estadual do destinatário para a Frete Rápido.</comment>
+                        </ref_attr_state_registration_type>
                     </fields>
                 </freterapido>
             </groups>

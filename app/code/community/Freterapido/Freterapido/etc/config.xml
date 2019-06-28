@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Freterapido_Freterapido>
-            <version>1.3.3</version>
+            <version>1.3.4</version>
             <depends>
                 <Mage_shipping />
             </depends>
@@ -104,4 +104,15 @@
             </freterapido>
         </carriers>
     </default>
+    <frontend>
+        <routers>
+            <Freterapido_FreterapidoOccurrencesRoute>
+                <use>standard</use>
+                <args>
+                    <module>Freterapido_Freterapido</module>
+                    <frontName>freterapido-occurrences</frontName>
+                </args>
+            </Freterapido_FreterapidoOccurrencesRoute>
+        </routers>
+    </frontend>
 </config>

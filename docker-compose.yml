@@ -24,7 +24,7 @@ services:
       - ./skin/frontend/base/default/css/freterapido:/var/www/html/skin/frontend/base/default/css/freterapido
 
   database:
-    image: mysql:5.6.23
+    image: mariadb:10.1
     volumes:
       - magento-data:/var/lib/mysql/data
     env_file:
