@@ -46,8 +46,6 @@ A Frete Rápido não se responsabiliza por eventualidades advindas deste módulo
 
 # Documentação Frete Rápido
 
-##  - [Webhook](https://freterapido.com/wiki/docs/integrations/magento_1.9/#Webhook).
-
 ##  - [Configurações iniciais](https://freterapido.com/wiki/docs/integrations/magento_1.9/#configuracoes-iniciais).
 
 1. [Configuração do módulo](https://freterapido.com/wiki/docs/integrations/magento_1.9/#_1-configuracao-do-modulo).
@@ -61,6 +59,8 @@ A Frete Rápido não se responsabiliza por eventualidades advindas deste módulo
 ##  - [Contratação do Frete](https://freterapido.com/wiki/docs/integrations/magento_1.9/#contratacao-do-frete).
 
 ##  - [Cálculo do frete na página do produto](https://freterapido.com/wiki/docs/integrations/magento_1.9/#cotacoes-de-frete-na-pagina-do-produto).
+
+##  - [Webhook](https://freterapido.com/wiki/docs/integrations/magento_1.9/#Webhook).
 
 ##  - [Considerações finais](https://freterapido.com/wiki/docs/integrations/magento_1.9/#consideracoes-finais).
 
