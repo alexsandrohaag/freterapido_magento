@@ -18,7 +18,7 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
     private function _response($status, $message = '', $error = '')
     {
         header('Content-Type: application/json');
-        http_response_code(400);
+        http_response_code($status);
 
         $data = [];
         $data['error'] = !empty($error) ? true : false;
