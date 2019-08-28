@@ -97,8 +97,8 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
             if ($order->getData('state') != 'complete') {
                 try {
                     if ($occurrence->codigo == self::FR_STATUS_ENTREGUE) {
-                        $order->setData('state', "complete");
-                        $order->setStatus("complete");
+                        $order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
+                        $order->setStatus(Mage_Sales_Model_Order::STATE_COMPLETE);
                         $history = $order->addStatusHistoryComment("Entrega realizada em {$update_date}", false);
                     } else {
                         $history = $order->addStatusHistoryComment("{$occurrence->nome} em {$update_date} {$message}", false);
