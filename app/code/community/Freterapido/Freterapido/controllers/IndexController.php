@@ -29,6 +29,10 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
 
     public function indexAction()
     {
+        if ($this->getRequest()->isGet()) {
+            $this->_response(200, 'Olá, humano. Você por aqui?!', '');
+        }
+
         /** @var object $occurrence */
         $occurrence = null;
 
@@ -85,7 +89,7 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
             $update_date = $update_date->format('d/m/Y') . ' às ' . $update_date->format('H:i');
 
             $message = '';
-            if ((isset($occurrence->mensagem)) && (!empty($occurrence->mensagem))){
+            if ((isset($occurrence->mensagem)) && (!empty($occurrence->mensagem))) {
                 $message = "[{$occurrence->mensagem}]";
             }
 
