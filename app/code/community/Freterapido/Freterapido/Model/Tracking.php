@@ -32,6 +32,7 @@ class Freterapido_Freterapido_Model_Tracking
         $this->_result = Mage::getModel('shipping/tracking_result');
 
         foreach ((array) $trackings as $code) {
+            $this->_sendInvoice($code);
             $this->_getFrTracking($code);
         }
 
@@ -54,10 +55,10 @@ class Freterapido_Freterapido_Model_Tracking
         try {
             $response = $this->_requestApi();
 
-            if (200 != $response->getStatus()) {
+            if ($response->getStatus() != 200) {
                 throw new Exception(
                     'Erro ao tentar consultar o tracking do pedido ' . $this->_tracking_number .
-                    '. ResponseStatus: ' . $response->getStatus()
+                        '. ResponseStatus: ' . $response->getStatus()
                 );
             }
 
@@ -109,6 +110,40 @@ class Freterapido_Freterapido_Model_Tracking
 
         // Realiza a chamada GET
         return $client->request('GET');
+    }
+
+    /**
+     * Realiza a requisição para o envio da NFe para Frete Rápido
+     *
+     * @param array $invoice_data
+     * @return Zend_Http_Response
+     */
+    protected function _invoiceApi($tracking_number, $invoice_data)
+    {
+        // Configura a url com o id do frete e o token de acesso
+        $api_url = sprintf(
+            Mage::helper($this->_code)->getConfigData('api_invoice_url'),
+            preg_replace("/\W/", '', $tracking_number),
+            Mage::helper($this->_code)->getConfigData('token')
+        );
+
+        // Configura a chamada com a API
+        $config = array(
+            'adapter' => 'Zend_Http_Client_Adapter_Curl',
+            'curloptions' => array(
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_SSL_VERIFYPEER, false
+            ),
+        );
+
+        // Configura o cliente http passando a URL da API e a configuração
+        $client = new Zend_Http_Client($api_url, $config);
+
+        // Adiciona os parâmetros à requisição
+        $client->setRawData(json_encode($invoice_data), 'application/json');
+
+        // Realiza a chamada POST
+        return $client->request('POST');
     }
 
     /**
@@ -182,6 +217,31 @@ class Freterapido_Freterapido_Model_Tracking
         $error->setErrorMessage('Erro ao tentar consultar o tracking do pedido ' . $this->_tracking_number);
 
         return $error;
+    }
+
+    protected function _sendInvoice($tracking_number)
+    {
+        //Retorna o pedido pelo tracking code do magento
+        $tracking_info = Mage::getModel('sales/order_shipment_track')->load($tracking_number, 'track_number');
+        $order = Mage::getModel('sales/order')->load($tracking_info->getOrderId());
+
+        try {
+            //Retorna a nota fiscal
+            $invoice_data = Freterapido_Freterapido_Model_Observer::_getInvoice($order);
+
+            if (!empty($invoice_data)) {
+                //Formata os dados da invoice para serem aceitos pela API Frete Rápido
+                $invoice_data = ['nota_fiscal' => [$invoice_data]];
+
+                //Faz a request de envio à Frete Rápido
+                $response = $this->_invoiceApi($tracking_number, $invoice_data);
+                if ($response->getStatus() !== 200) {
+                    throw new \Exception("$response->getStatus() - $response->getBody()");
+                }
+            }
+        } catch (\Exception $e) {
+            $this->_log("Não foi possível enviar a NFe do pedido {$order->getIncrementId()} - {$e->getMessage()}");
+        }
     }
 
     /**
