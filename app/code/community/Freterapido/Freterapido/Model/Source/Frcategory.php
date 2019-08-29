@@ -125,21 +125,13 @@ class Freterapido_Freterapido_Model_Source_Frcategory extends Mage_Eav_Model_Ent
                 ['label' => 'Tapeçaria / Cortinas / Persianas',     'value' => 108],
                 ['label' => 'Outros',                               'value' => 999],
             ];
+
+            usort($this->_options, function($a, $b) {
+                return strcmp($a['label'], $b['label']);
+            });
         }
 
-        //Ordena as opções pelo label em ordem alfabética
-        foreach ($this->_options as $key => $value) {
-            $labels[$key] = $value['label'];
-        }
-        array_multisort($labels, SORT_ASC, $this->_options);
-
-        $options = $this->_options;
-
-        if ($withEmpty) {
-            array_unshift($options, array('value' => '', 'label' => '-- Selecione --'));
-        }
-
-        return $options;
+        return $this->_options;
     }
 
     public function getOptionText($value)
