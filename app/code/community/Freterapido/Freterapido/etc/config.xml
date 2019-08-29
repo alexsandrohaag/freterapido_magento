@@ -12,7 +12,7 @@
 <config>
     <modules>
         <Freterapido_Freterapido>
-            <version>1.3.4</version>
+            <version>1.3.5</version>
             <depends>
                 <Mage_shipping />
             </depends>
@@ -98,9 +98,10 @@
                 <!-- CONFIGURATION -->
                 <weight_type>kg</weight_type>
                 <platform_code>95e893cfc</platform_code>
-                <api_simulation_url>https://freterapido.com/api/external/embarcador/v1/quote-simulator</api_simulation_url>
-                <api_quote_url>https://freterapido.com/api/external/embarcador/v1/quote/ecommerce/%s/offer/%s?token=%s</api_quote_url>
-                <api_tracking_url>https://freterapido.com/api/external/embarcador/v1/quotes/%s/occurrences?token=%s</api_tracking_url>
+                <api_simulation_url>http://freterapido.local/api/external/embarcador/v1/quote-simulator</api_simulation_url>
+                <api_quote_url>http://freterapido.local/api/external/embarcador/v1/quote/ecommerce/%s/offer/%s?token=%s</api_quote_url>
+                <api_tracking_url>http://freterapido.local/api/external/embarcador/v1/quotes/%s/occurrences?token=%s</api_tracking_url>
+                <api_invoice_url>http://freterapido.local/api/external/embarcador/v1/quotes/%s/invoices?token=%s</api_invoice_url>
             </freterapido>
         </carriers>
     </default>

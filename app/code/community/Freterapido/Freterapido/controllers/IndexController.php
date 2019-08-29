@@ -18,7 +18,7 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
     private function _response($status, $message = '', $error = '')
     {
         header('Content-Type: application/json');
-        http_response_code(400);
+        http_response_code($status);
 
         $data = [];
         $data['error'] = !empty($error) ? true : false;
@@ -29,6 +29,10 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
 
     public function indexAction()
     {
+        if ($this->getRequest()->isGet()) {
+            $this->_response(200, 'Olá, humano. Você por aqui?!', '');
+        }
+
         /** @var object $occurrence */
         $occurrence = null;
 
@@ -85,7 +89,7 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
             $update_date = $update_date->format('d/m/Y') . ' às ' . $update_date->format('H:i');
 
             $message = '';
-            if ((isset($occurrence->mensagem)) && (!empty($occurrence->mensagem))){
+            if ((isset($occurrence->mensagem)) && (!empty($occurrence->mensagem))) {
                 $message = "[{$occurrence->mensagem}]";
             }
 
@@ -93,8 +97,8 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
             if ($order->getData('state') != 'complete') {
                 try {
                     if ($occurrence->codigo == self::FR_STATUS_ENTREGUE) {
-                        $order->setData('state', "complete");
-                        $order->setStatus("complete");
+                        $order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
+                        $order->setStatus(Mage_Sales_Model_Order::STATE_COMPLETE);
                         $history = $order->addStatusHistoryComment("Entrega realizada em {$update_date}", false);
                     } else {
                         $history = $order->addStatusHistoryComment("{$occurrence->nome} em {$update_date} {$message}", false);

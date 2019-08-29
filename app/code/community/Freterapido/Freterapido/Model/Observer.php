@@ -42,6 +42,8 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
 
     protected $_success = true;
 
+    protected $_invoice = [];
+
     public function quote($observer)
     {
         $active = (bool) Mage::helper($this->_code)->getConfigData('active');
@@ -99,6 +101,12 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
             $this->_getReceiver($_order, $_cnpj_cpf, $_state_registration);
 
             $this->_getOffer($_order->getShippingMethod());
+
+            try {
+                $this->_invoice = $this->_getInvoice($_order);
+            } catch (\Exception $e) {
+                $this->_log($e->getMessage());
+            }
 
             $this->_url = sprintf(
                 Mage::helper($this->_code)->getConfigData('api_quote_url'),
@@ -194,18 +202,114 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Realiza a contratação do frete no Frete Rápido
+     * Extrai as informações da NFe através dos comentários de faturamento
      *
+     * @param mixed $order
+     * @return array
+     *
+     * - Formato do padrão do comentário -> nfe:00000000000000000000000000000000000000000000, emissao:dd/mm/aaaa hh:mm:ss
+     */
+    public static function _getInvoice($order)
+    {
+        $invoices = $order->getInvoiceCollection();
+        $comments = [];
+
+        if (!empty($invoices)) {
+            foreach ($invoices as $invoice) {
+                $invoice_comments = $invoice->getCommentsCollection(true);
+
+                foreach ($invoice_comments as $comment) {
+                    $comment_data = $comment->getComment();
+                    if (!empty($comment_data)) {
+                        $comments[] = [
+                            'content'    => $comment_data,
+                            'created_at' => $comment->getCreatedAt(),
+                        ];
+                    }
+                }
+            }
+        }
+
+        // Ordena os comentarios por data de criação decrescente
+        if (!empty($comments)) {
+            foreach ($comments as $key => $value) {
+                $created_at[$key] = $value['created_at'];
+            }
+            array_multisort($created_at, SORT_DESC, $comments);
+        }
+
+        // Aplica filtro nos comentários para recuperar apenas aqueles que possuem conteúdo válido
+        $comments = array_map(function ($comment) {
+
+            $data = explode(',', str_replace(' ', '', $comment['content']));
+
+            if (count($data) === 2) {
+                $invoice_key  = '';
+                $invoice_date = '';
+                foreach ($data as $part) {
+                    $key_pos  = strpos($part, 'nfe:');
+                    $date_pos = strpos($part, 'emissao:');
+
+                    if ($key_pos !== false) {
+                        $invoice_key = substr($part, $key_pos + 4);
+                    }
+                    if ($date_pos !== false) {
+                        $invoice_date = substr($part, $date_pos + 8);
+                    }
+                }
+                if (
+                    !empty($invoice_key) &&
+                    !empty($invoice_date) &&
+                    strlen($invoice_key) == 44 &&
+                    strlen($invoice_date) == 18
+                ) {
+                    return [
+                        'invoice_key' => $invoice_key,
+                        'invoice_date' => $invoice_date,
+                    ];
+                }
+            }
+        }, $comments);
+
+        if (!empty($comments)) {
+            // Retorna o primeiro item do array (mais recente) para obter os dados da NFe
+            $invoice_data = $comments[0];
+
+            // Cria a struct de nota fiscal
+            if (!empty($invoice_data)) {
+                try {
+                    return [
+                        'numero'       => substr($invoice_data['invoice_key'], 25, 9),
+                        'serie'        => substr($invoice_data['invoice_key'], 22, 3),
+                        'chave_acesso' => $invoice_data['invoice_key'],
+                        'valor'        => $order->getGrandTotal(),
+                        'data_emissao' => DateTime::createFromFormat('d/m/YH:i:s', $invoice_data['invoice_date'])->format('Y-m-d H:i:s'),
+                    ];
+                } catch (\Exception $e) {
+                    throw new \Exception("Erro ao extrair dados da NFe: {$e->getMessage()}");
+                }
+            }
+        }
+        return [];
+    }
+
+    /**
+     * Realiza a contratação do frete no Frete Rápido
      * @throws Exception
      */
     protected function _doHire()
     {
+
         // Dados que serão enviados para a API do Frete Rápido
         $request_data = array(
             'numero_pedido' => $this->_increment_id,
             'remetente' => $this->_sender,
             'destinatario' => $this->_receiver,
         );
+
+        if (!empty($this->_invoice)) {
+            $request_data = array_merge($request_data, ['nota_fiscal' => $this->_invoice]);
+        }
 
         $config = array(
             'adapter' => 'Zend_Http_Client_Adapter_Curl',
