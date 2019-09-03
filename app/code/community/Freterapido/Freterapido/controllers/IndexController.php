@@ -68,9 +68,10 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
                 $this->_response(404, '', "Nenhum pedido localizado - ID pedido: {$occurrence->numero_pedido}");
             }
 
-            $shipment = reset(Mage::getResourceModel('sales/order_shipment_track_collection')
+            $shipment_collection = Mage::getResourceModel('sales/order_shipment_track_collection')
                 ->setOrderFilter($order)
-                ->getData());
+                ->getData();
+            $shipment = reset($shipment_collection);
 
             //Verifica se foi encontrado rastreio para o pedido
             if (empty($shipment)) {
