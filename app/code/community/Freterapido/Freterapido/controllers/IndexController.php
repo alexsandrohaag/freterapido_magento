@@ -94,22 +94,20 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
                 $message = "[{$occurrence->mensagem}]";
             }
 
-            //Atualiza o pedido para finalizado quando entreue para Frete Rápido
-            if ($order->getData('state') != 'complete') {
-                try {
-                    if ($occurrence->codigo == self::FR_STATUS_ENTREGUE) {
-                        $order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
-                        $order->setStatus(Mage_Sales_Model_Order::STATE_COMPLETE);
-                        $history = $order->addStatusHistoryComment("Entrega realizada em {$update_date}", false);
-                    } else {
-                        $history = $order->addStatusHistoryComment("{$occurrence->nome} em {$update_date} {$message}", false);
-                    }
-                    $history->setIsCustomerNotified(false);
-                    $order->save();
-                    $this->_response(200, 'Pedido atualizado com sucesso', '');
-                } catch (\Exception $e) {
-                    $this->_response(500, '', "Não foi possível atualizar o status - ID pedido: {$occurrence->numero_pedido}");
+            //Atualiza o pedido para "complete" quando estiver "Entregue" na Frete Rápido
+            try {
+                if ($occurrence->codigo == self::FR_STATUS_ENTREGUE) {
+                    $order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
+                    $order->setStatus(Mage_Sales_Model_Order::STATE_COMPLETE);
+                    $history = $order->addStatusHistoryComment("Entrega realizada em {$update_date}", false);
+                } else {
+                    $history = $order->addStatusHistoryComment("{$occurrence->nome} em {$update_date} {$message}", false);
                 }
+                $history->setIsCustomerNotified(false);
+                $order->save();
+                $this->_response(200, 'Pedido atualizado com sucesso', '');
+            } catch (\Exception $e) {
+                $this->_response(500, '', "Não foi possível atualizar o status - ID pedido: {$occurrence->numero_pedido}");
             }
         }
     }
