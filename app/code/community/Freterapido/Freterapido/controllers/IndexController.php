@@ -94,11 +94,21 @@ class Freterapido_Freterapido_IndexController extends Mage_Core_Controller_Front
                 $message = "[{$occurrence->mensagem}]";
             }
 
-            //Atualiza o pedido para "complete" quando estiver "Entregue" na Frete Rápido
+            //Atualiza o pedido para o status configurado no módulo quando estiver "Entregue" na Frete Rápido
             try {
                 if ($occurrence->codigo == self::FR_STATUS_ENTREGUE) {
-                    $order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
-                    $order->setStatus(Mage_Sales_Model_Order::STATE_COMPLETE);
+
+                    //Verifica se o status informado na configuração existe
+                    $custom_delivered_status = Mage::getResourceModel('sales/order_status_collection')
+                        ->joinStates()
+                        ->addFieldToFilter('main_table.status', Mage::helper(self::CODE)->getConfigData('order_status_on_delivered'))
+                        ->getFirstItem();
+
+                    if (!empty($custom_delivered_status->getStatus())) {
+                        $order->setStatus($custom_delivered_status->getStatus());
+                        $order->setData('state', $custom_delivered_status->getState());
+                    }
+
                     $history = $order->addStatusHistoryComment("Entrega realizada em {$update_date}", false);
                 } else {
                     $history = $order->addStatusHistoryComment("{$occurrence->nome} em {$update_date} {$message}", false);
