@@ -290,6 +290,12 @@ class Freterapido_Freterapido_Model_Carrier_Freterapido extends Mage_Shipping_Mo
             'codigo_plataforma' => $this->_platform_code
         );
 
+        $_channel = Mage::helper(self::CODE)->getConfigData('sales_channel');
+
+        if (!empty($_channel)) {
+            $request_data['canal'] = $_channel;
+        }
+
         if (!is_null($this->_quote_id)) {
             $request_data['cotacao_plataforma'] = $this->_quote_id;
         }
