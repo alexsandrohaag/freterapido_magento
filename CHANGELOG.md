@@ -1,5 +1,52 @@
 # Changelog
 
+## [1.3.6] - 2019-09-13
+### Adicionado
+
+#### **Status customizáveis**
+
+Quando configurados no módulo, ao contratar ou quand um frete for dado como entregue pela Frete Rápido, o módulo irá atualizar os respectivos pedidos para os status configurados.
+
+#### **Canal de vendas para regra de frete**
+
+A partir desta versão, é possível informar o canal de vendas na configuração do módulo, permitindo assim, a aplicação de regras de frete mais específicas.
+
+
+#### **Categorias**
+
+	- Acessório para decoração (com vidro)
+	- Acessório para decoração (sem vidro)
+	- Acessórios automotivos
+	- Acessórios para bicicleta
+	- Artesanatos (com vidro)
+	- Bicicletas (desmontada)
+	- Cama / Mesa / Banho
+	- Chapas de madeira
+	- Manequins
+	- Portas / Janelas (com vidro)
+	- Torneiras
+	- Vasos de polietileno
+
+#### **Webhook**
+
+	- Inclusão dos status customizáveis para a atualização dos pedidos;
+
+#### **Contratação do frete**
+
+	- Inclusão dos status customizáveis para a atualização dos pedidos;
+
+#### **Cotação do frete**
+
+	- Envio do canal de venda;
+
+### Alterado
+
+#### **Categorias**
+
+	- Artesanatos, -> Artesanatos (sem vidro),            
+    - Portas / Janelas, -> Portas / Janelas (sem vidro),       
+    - Materiais hidráulicos -> Materiais hidráulicos / Encanamentos
+
 ## [1.3.5] - 2019-08-29
 ### Adicionado
 
