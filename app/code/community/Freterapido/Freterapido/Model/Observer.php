@@ -119,6 +119,8 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
 
             $this->_addTracking($_shipment);
 
+            $this->_updateOrderStatus($_order);
+
             $this->_log('Contratação realizada com sucesso.');
 
             return $this;
@@ -357,6 +359,29 @@ class Freterapido_Freterapido_Model_Observer extends Mage_Core_Model_Abstract
             ->setTitle($carrier); //carrier title
 
         $shipment->addTrack($track);
+    }
+
+    /**
+     * Atualiza o status do pedido conforme o status configurado no módulo
+     *
+     * @param $_order
+     */
+    protected function _updateOrderStatus($_order)
+    {
+        //Verifica se o status informado na configuração existe
+        $_custom_hired_status = Mage::getResourceModel('sales/order_status_collection')
+            ->joinStates()
+            ->addFieldToFilter('main_table.status', Mage::helper(self::CODE)->getConfigData('order_status_on_hire'))
+            ->getFirstItem();
+
+        if (!empty($_custom_hired_status->getStatus())) {
+            $_order->setStatus($_custom_hired_status->getStatus());
+            $_order->setData('state', $_custom_hired_status->getState());
+        }
+
+        $_history = $_order->addStatusHistoryComment("Frete contratado em " . date('d/m/Y H:i:s'), false);
+        $_history->setIsCustomerNotified(false);
+        $_order->save();
     }
 
     /**
