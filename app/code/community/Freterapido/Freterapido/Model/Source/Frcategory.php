@@ -107,11 +107,11 @@ class Freterapido_Freterapido_Model_Source_Frcategory extends Mage_Eav_Model_Ent
                 ['label' => 'Acessórios para celular',              'value' => 90],
                 ['label' => 'Toldos',                               'value' => 91],
                 ['label' => 'Pisos cerâm / Revestimentos',          'value' => 92],
-                ['label' => 'Artesanatos',                          'value' => 93],
+                ['label' => 'Artesanatos (sem vidro)',              'value' => 93],
                 ['label' => 'Quadros / Molduras',                   'value' => 94],
-                ['label' => 'Porta / Janelas',                      'value' => 95],
+                ['label' => 'Portas / Janelas (sem vidro)',         'value' => 95],
                 ['label' => 'Placa de Energia Solar',               'value' => 96],
-                ['label' => 'Materiais hidráulicos',                'value' => 97],
+                ['label' => 'Materiais hidráulicos / Encanamentos', 'value' => 97],
                 ['label' => 'Pia / Vasos',                          'value' => 98],
                 ['label' => 'Bijuteria',                            'value' => 99],
                 ['label' => 'Joia',                                 'value' => 100],
@@ -123,10 +123,22 @@ class Freterapido_Freterapido_Model_Source_Frcategory extends Mage_Eav_Model_Ent
                 ['label' => 'Estufa térmica',                       'value' => 106],
                 ['label' => 'Equipamentos de cozinha industrial',   'value' => 107],
                 ['label' => 'Tapeçaria / Cortinas / Persianas',     'value' => 108],
+                ['label' => 'Acessório para decoração (com vidro)', 'value' => 109],
+                ['label' => 'Acessório para decoração (sem vidro)', 'value' => 110],
+                ['label' => 'Acessórios automotivos',               'value' => 111],
+                ['label' => 'Acessórios para bicicleta',            'value' => 112],
+                ['label' => 'Artesanatos (com vidro)',              'value' => 113],
+                ['label' => 'Bicicletas (desmontada)',              'value' => 114],
+                ['label' => 'Cama / Mesa / Banho',                  'value' => 115],
+                ['label' => 'Chapas de madeira',                    'value' => 116],
+                ['label' => 'Manequins',                            'value' => 117],
+                ['label' => 'Portas / Janelas (com vidro)',         'value' => 118],
+                ['label' => 'Torneiras',                            'value' => 119],
+                ['label' => 'Vasos de polietileno',                 'value' => 120],
                 ['label' => 'Outros',                               'value' => 999],
             ];
 
-            usort($this->_options, function($a, $b) {
+            usort($this->_options, function ($a, $b) {
                 return strcmp($a['label'], $b['label']);
             });
         }
