@@ -5,7 +5,7 @@
 
 #### **Status customizáveis**
 
-Quando configurados no módulo, ao contratar ou quand um frete for dado como entregue pela Frete Rápido, o módulo irá atualizar os respectivos pedidos para os status configurados.
+Quando configurados no módulo, ao contratar ou quando um frete for dado como entregue pela Frete Rápido, o módulo irá atualizar os respectivos pedidos para os status configurados.
 
 #### **Canal de vendas para regra de frete**
 
